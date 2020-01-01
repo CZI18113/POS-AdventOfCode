@@ -23,32 +23,48 @@ namespace ProgramAlarm
 
                 // All input is on the first line
                 string line = sr.ReadLine();
-                int[] data = line.Split(',').Select(x => int.Parse(x)).ToArray();
-                compute(12, 2);
+                int[] origin = line.Split(',').Select(x => int.Parse(x)).ToArray();
+                int[] adapted = new int[origin.Length];
 
+                Console.WriteLine("result of part one: " + compute(12, 2));
 
                 int compute(int one, int two)
                 {
-                    data[1] = one;
-                    data[2] = two;
+                    for(int i = 0; i < origin.Length; i ++) { adapted[i] = origin[i]; }
+
+                    adapted[1] = one;
+                    adapted[2] = two;
 
                     int pointer = 0;
-                    while (data[pointer] != 99)
+                    while (adapted[pointer] != 99)
                     {
-                        if (data[pointer] == 1)
+                        if (adapted[pointer] == 1)
                         {
-                            data[data[pointer + 3]] = data[data[pointer + 1]] + data[data[pointer + 2]];
+                            adapted[adapted[pointer + 3]] = adapted[adapted[pointer + 1]] + adapted[adapted[pointer + 2]];
                         }
-                        else if (data[pointer] == 2)
+                        else if (adapted[pointer] == 2)
                         {
-                            data[data[pointer + 3]] = data[data[pointer + 1]] * data[data[pointer + 2]];
+                            adapted[adapted[pointer + 3]] = adapted[adapted[pointer + 1]] * adapted[adapted[pointer + 2]];
                         }
                         pointer += 4;
                     }
-                    return data[result];
+                    return adapted[result];
                 }
-                Console.WriteLine("result of part one: " + data[result]);
 
+
+                // Here comes part two 
+
+                for (int noun = 0; noun <= 99; noun++)
+                {
+                    for (int verb = 0; verb <= 99; verb++)
+                    {
+                        if (compute(noun, verb) == 19690720)
+                        {
+                            Console.WriteLine("result of part two: " + (100 * noun + verb));
+                            return;
+                        }
+                    }
+                }
 
             }
 
