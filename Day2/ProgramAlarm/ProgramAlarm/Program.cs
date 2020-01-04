@@ -21,7 +21,7 @@ namespace ProgramAlarm
             using (StreamReader sr = new StreamReader(iPath))
             {
 
-                // All input is on the first line
+                // All information in one line
                 string line = sr.ReadLine();
                 int[] origin = line.Split(',').Select(x => int.Parse(x)).ToArray();
                 int[] adapted = new int[origin.Length];
