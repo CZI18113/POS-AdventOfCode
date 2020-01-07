@@ -28,9 +28,9 @@ namespace Crossed_Wires
                  */
                 string line = sr.ReadLine();
 
-                List<string> line1 = line.Split(',').ToList();
+                string[] line1 = line.Split(',');
                 line = sr.ReadLine();
-                List<string> line2 = line.Split(',').ToList();
+                string[] line2 = line.Split(',');
 
                 /* string splitter = ",";
                 switch (splitter)
@@ -51,20 +51,24 @@ namespace Crossed_Wires
                 var Line1 = DrawLine(line1);
                     var Line2 = DrawLine(line2);
 
-                    List<Point> intersects = Line1.Intersect(Line2).ToList();
+                    List<Point> crosspoints = Line1.Intersect(Line2).ToList();
 
                     List<int> distances = new List<int>();
-                    foreach(Point p in intersects)
+                    foreach(Point p in crosspoints)
                     {
                         distances.Add(CalcManhatten(0, p.X, 0, p.Y));
                     }
                 Console.WriteLine("Result of Day 3 Part 1: " + distances.Min());
+
+                int distLine1 = Line1.IndexOf(crosspoints.First()) + 1;
+                int distLine2 = Line2.IndexOf(crosspoints.First()) + 1;
+                Console.WriteLine("Result of Day 3 Part 2: " + (distLine1 + distLine2));
                                    
             }
 
 
         }
-        public static List<Point> DrawLine(List<string> or)
+        public static List<Point> DrawLine(string[] or)
         {
             Point last = new Point(0, 0);
             List<Point> line = new List<Point>();
@@ -74,7 +78,7 @@ namespace Crossed_Wires
                 DrawDir(last, dir, line);
                 last = line.Last();
             }
-            line.RemoveAt(0);
+            //line.RemoveAt(0);
             return line;
         }
 
