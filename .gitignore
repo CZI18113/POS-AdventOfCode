@@ -1,3 +1,4 @@
-.sln
-.csproj
-/bin
+bin/
+obj/
+*.csproj
+.vscode/
